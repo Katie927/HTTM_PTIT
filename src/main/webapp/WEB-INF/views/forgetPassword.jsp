@@ -64,10 +64,10 @@
                 <h3>Quên mật khẩu</h3>
             </div>
             <div class="login_form">
-                <form class="form_creat_user" method="POST" action="${classpath }/register">
+                <form class="form_creat_user" method="POST" action="${classpath }/findEmail">
                     <div class="login_row">
                         <label for="">Email</label>
-                        <input type="text" name="username" id="username" placeholder="Nhập số điện thoại hoặc email">
+                        <input type="text" name="username" id="username" placeholder="Nhập email">
                     </div>
                     <div class="login_button">
                         <button type="submit">Kiểm tra</button>
@@ -77,6 +77,20 @@
             </div>
         </div>
     </main>
+    
+    <!-- Hiển thị thông báo lỗi -->
+    <c:if test="${not empty error}">
+        <div class="alert alert-danger" role="alert">
+            <c:out value="${error}" />
+        </div>
+    </c:if>
+    
+    <!-- Hiển thị thông báo thành công -->
+    <c:if test="${not empty success}">
+        <div class="alert alert-success" role="alert">
+            <c:out value="${success}" />
+        </div>
+    </c:if>
 
     <!-- footer -->
     

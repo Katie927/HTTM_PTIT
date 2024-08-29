@@ -9,7 +9,7 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -31,6 +31,25 @@
 <!-- Swiper -->
 <link rel="stylesheet"
 	href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+	<style>
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+    </style>
 
 </head>
 <body>
@@ -67,7 +86,7 @@
                 <h3>Đăng Ký</h3>
             </div>
             <div class="login_form">
-                <form class="form_creat_user" method="POST" action="${classpath }/register">
+                <form class="form_creat_user" method="POST" action="${classpath }/register" >
                     <div class="login_row">
                         <label for="">Số điện thoại/Email</label>
                         <input type="text" name="email" id="email" placeholder="Nhập số điện thoại hoặc email">
@@ -91,6 +110,22 @@
             </div>
         </div>
     </main>
+    
+    <!-- Hiển thị thông báo lỗi -->
+    			
+    			
+                <c:if test="${not empty error}">
+                    <div class="alert alert-danger" role="alert">
+                        <c:out value="${error}" />
+                    </div>
+                </c:if>
+                
+                <!-- Hiển thị thông báo thành công -->
+                <c:if test="${not empty success}">
+                    <div class="alert alert-success" role="alert">
+                        <c:out value="${success}" />
+                    </div>
+                </c:if>
 
 </body>
 </html>

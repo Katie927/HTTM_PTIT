@@ -58,34 +58,45 @@
     </nav>
 
     <!--  -->
-    <main>
-        <div class="container">
-            <div class="login_title">
-                <h3>Xác thực email</h3>
-            </div>
-            <div class="login_form">
-                <form class="form_creat_user" method="POST" action="${classpath }/emailVerify">
-                    <div class="login_row">
-                        <label for="">Nhập mã xác thực</label>
-                        <input type="text" name="verification_token" id="verification_token" placeholder="Nhập mã xác thực email">
-                    </div>
-                    <div class="login_button">
-                        <button type="submit">Kiểm tra</button>
-                    </div>
-                    
-                </form>
-            </div>
-        </div>
-    </main>
+	<main>
+		<div class="container">
+			<div class="login_title">
+				<h3>Quên mật khẩu</h3>
+			</div>
+			<div class="login_form">
+				<form class="form_creat_user" method="POST" action="/resetPassword">
+					<div class="login_row">
+						<label for="token">Mã xác thực</label> <input type="text"
+							name="token" id="token" placeholder="Nhập mã xác thực">
+					</div>
+					<div class="login_row">
+						<label for="newPassword">Mật khẩu mới</label> <input
+							type="password" name="newPassword" id="newPassword"
+							placeholder="Nhập mật khẩu mới">
+					</div>
+					<div class="login_button">
+						<button type="submit">Đặt lại mật khẩu</button>
+					</div>
 
+					<!-- Hiển thị thông báo lỗi -->
+					<c:if test="${not empty error}">
+						<div class="alert alert-danger" role="alert">
+							<c:out value="${error}" />
+						</div>
+					</c:if>
 
-	<!-- Hiển thị thông báo thành công -->
-    <c:if test="${not empty success}">
-        <div class="alert alert-success" role="alert">
-            <c:out value="${success}" />
-        </div>
-    </c:if>
-    <!-- footer -->
+					<!-- Hiển thị thông báo thành công -->
+					<c:if test="${not empty success}">
+						<div class="alert alert-success" role="alert">
+							<c:out value="${success}" />
+						</div>
+					</c:if>
+				</form>
+			</div>
+		</div>
+	</main>
+
+	<!-- footer -->
     
 </body>
 </html>

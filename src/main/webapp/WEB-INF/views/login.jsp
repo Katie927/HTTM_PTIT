@@ -67,7 +67,7 @@
 							was not successful, try again!!!</div>
 					</c:if>
 					<div class="login_row">
-						<label for="">Số điện thoại/Email</label> <input type="text"
+						<label for="">Email</label> <input type="text"
 							name="username" id="username"
 							placeholder="Nhập số điện thoại hoặc email">
 					</div>
