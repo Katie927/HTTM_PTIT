@@ -2,7 +2,7 @@ package httm.controller;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +52,11 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = "/findEmail", method = RequestMethod.GET)
 	public String findEmail() throws IOException {
 		return "findEmail";
+	}
+	
+	@RequestMapping(value = "/changePassword", method = RequestMethod.GET)
+	public String changePassword() throws IOException{
+		return "changePassword";	
 	}
 	
 //	@RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -130,9 +135,21 @@ public class LoginController extends BaseController {
 	}
 	
 	// Phương thức tạo mã xác thực
-    private String generateToken() {
-        return UUID.randomUUID().toString();
-    }
+//    private String generateToken() {
+//        return UUID.randomUUID().toString();
+//    }
+	private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+	private static String generateToken() {
+		Random random = new Random();
+		StringBuilder token = new StringBuilder(6);
+
+		for (int i = 0; i < 6; i++) {
+			token.append(CHARACTERS.charAt(random.nextInt(CHARACTERS.length())));
+		}
+
+		return token.toString();
+	}
 	
     // xác thực email
     @PostMapping("/emailVerify")
@@ -209,6 +226,48 @@ public class LoginController extends BaseController {
         return "findEmail"; // Trả về trang đặt lại mật khẩu với thông báo thành công
     }
     
+    // doi mat khau
+    @PostMapping("/change-password")
+    public String changePassword(@RequestParam("password") String password, @RequestParam("email") String email,
+    												@RequestParam("newPassword") String newPassword,
+    												@RequestParam("retypePassword") String retypePassword, Model model) {
+    	
+    	System.out.println(email);
+        User user = userService.findByEmail(email);
+        
+        // kiểm tra mật khẩu hiện tại
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(4);
+        if(!encoder.matches(password, user.getPassword())) {
+        	System.out.println("Mật khẩu hiện tại không chính xác!");
+        	System.out.println(new BCryptPasswordEncoder(4).encode(password));
+        	System.out.println(user.getPassword());
+        	model.addAttribute("error", "Mật khẩu hiện tại không chính xác!");
+        	return "changePassword";
+        }
+        
+        // Cập nhật mật khẩu mới
+        if(!isPasswordValid(newPassword)) {
+        	System.out.println();
+        	model.addAttribute("error", "Mật khẩu không hợp lệ.");
+            return "changePassword";
+        }
+        
+        if(!newPassword.equals(retypePassword)) {
+        	System.out.println(retypePassword);
+        	System.out.println(newPassword);
+        	System.out.println("Mật khẩu mới không đúng!");
+        	model.addAttribute("error", "Nhập lại mật khẩu không đúng!");
+        	return "changePassword";
+        }
+        
+        user.setPassword(new BCryptPasswordEncoder(4).encode(newPassword));
+        userService.saveOrUpdate(user);
+
+        model.addAttribute("success", "Mật khẩu của bạn đã được thay đổi thành công.");
+        return "changePassword"; // Trả về trang đặt lại mật khẩu với thông báo thành công
+    }
+    
+    // kiemm tra mat khau
     private boolean isPasswordValid(String password) {
         // Định nghĩa các mẫu regex cho từng yêu cầu
         String uppercasePattern = ".*[A-Z].*";

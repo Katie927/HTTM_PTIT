@@ -88,7 +88,7 @@
             <div class="login_form">
                 <form class="form_creat_user" method="POST" action="${classpath }/register" >
                     <div class="login_row">
-                        <label for="">Email</label>
+                        <label for="">Số điện thoại/Email</label>
                         <input type="text" name="email" id="email" placeholder="Nhập số điện thoại hoặc email">
                     </div>
                     <div class="login_row">

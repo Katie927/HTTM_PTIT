@@ -44,7 +44,7 @@ public class UrlAuthenticationSuccessHandler implements AuthenticationSuccessHan
 	protected void handle(HttpServletRequest request, HttpServletResponse response, 
 							Authentication authentication) throws IOException {
 		
-		String targetUrl = "/login";	// lay url theo role user
+		String targetUrl = "/changePassword";	// lay url theo role user
 		if(response.isCommitted()) {
 			return;
 		}

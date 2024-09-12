@@ -83,27 +83,31 @@
     <main>
         <div class="container">
             <div class="login_title">
-                <h3>Đăng Ký</h3>
+                <h3>Đổi mật khẩu</h3>
             </div>
             <div class="login_form">
-                <form class="form_creat_user" method="POST" action="${classpath }/register" >
+                <form class="form_creat_user" method="POST" action="${classpath }/change-password" >
                     <div class="login_row">
                         <label for="">Email</label>
-                        <input type="text" name="email" id="email" placeholder="Nhập số điện thoại hoặc email">
+                        <input type="text" name="email" id="email" value="${loginedUser.username}" placeholder="${loginedUser.username}" readonly>
                     </div>
                     <div class="login_row">
-                        <label for="">Mật khẩu</label>
+                        <label for="">Mật khẩu cũ</label>
                         <input type="password" name="password" id="password" placeholder="Nhập mật khẩu">
                     </div>
                     <div class="login_row">
-                        <label for="retypepassword">Nhập lại mật khẩu</label>
+                        <label for="retypepassword">Mật khẩu mới</label>
+                        <input type="password" name="newPassword" id="newPassword" placeholder="Nhập lại mật khẩu">
+                    </div>
+                    <div class="login_row">
+                        <label for="retypepassword">Nhập lại mật khẩu mới</label>
                         <input type="password" name="retypePassword" id="retypePassword" placeholder="Nhập lại mật khẩu">
                     </div>
                     <div class="password_forget">
                         <a href="${classpath }/login">Đăng nhập</a>
                     </div>
                     <div class="login_button">
-                        <button type="submit">Đăng ký</button>
+                        <button type="submit">Cập nhật mật khẩu</button>
                     </div>
                     
                 </form>
